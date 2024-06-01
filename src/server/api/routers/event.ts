@@ -14,7 +14,7 @@ export const eventRouter = createTRPCRouter({
     });
   }),
 
-  createBibleStudy: publicProcedure
+  createEvent: publicProcedure
     .input(EventSchema)
     .mutation(async ({ ctx, input }) => {
       await ctx.db.event.create({
@@ -25,7 +25,7 @@ export const eventRouter = createTRPCRouter({
       });
     }),
 
-  deleteBibleStudy: publicProcedure
+  deleteEvent: publicProcedure
     .input(IdSchema)
     .mutation(async ({ ctx, input }) => {
       await ctx.db.event.delete({
