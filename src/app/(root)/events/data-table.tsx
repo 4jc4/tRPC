@@ -18,11 +18,22 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "~/components/ui/table";
 
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~/components/ui/dialog";
+
+import { ChevronLeft, ChevronRight, CirclePlus } from "lucide-react";
+import EventForm from "../../../components/forms/EventForm";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -53,7 +64,7 @@ export function DataTable<TData, TValue>({
   });
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Filter name..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -62,6 +73,31 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+        {/* ---------------------------------------------------------------- */}
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline">
+              <CirclePlus className="mr-2 h-4 w-4" />
+              Adicionar
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            {/* <DialogHeader>
+              <DialogTitle>Edit profile</DialogTitle>
+              <DialogDescription>
+                Make changes to your profile here. Click save when you done.
+              </DialogDescription>
+            </DialogHeader> */}
+            {/* <div className="grid gap-4 py-4"> */}
+            <EventForm />
+            {/* </div> */}
+            {/* <DialogFooter>
+              <Button type="submit">Save changes</Button>
+            </DialogFooter> */}
+          </DialogContent>
+        </Dialog>
+        {/* ---------------------------------------------------------------- */}
       </div>
       <div className="rounded-md border">
         <Table>

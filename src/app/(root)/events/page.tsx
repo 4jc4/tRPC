@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "~/trpc/react";
-import { DataTable } from "../../components/data-table";
+import { DataTable } from "./data-table";
 import { columns } from "./columns";
 
 export default function Page() {
