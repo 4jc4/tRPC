@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-import { formatDateString } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
+import DataTableRowActions from "../../../components/DataTable/DataTableRowActions";
 
 const EventSchema = z.object({
   id: z.number(),
@@ -12,11 +12,15 @@ const EventSchema = z.object({
 });
 export type EventSchema = z.infer<typeof EventSchema>;
 
-export const columns: ColumnDef<EventSchema>[] = [
-  {
-    accessorKey: "id",
-    header: "ID",
-  },
+interface ColumnsProps {
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+export const getEventsColumns = ({
+  onEdit,
+  onDelete,
+}: ColumnsProps): ColumnDef<EventSchema>[] => [
   {
     accessorKey: "code",
     header: "Code",
@@ -36,11 +40,9 @@ export const columns: ColumnDef<EventSchema>[] = [
     },
   },
   {
-    accessorKey: "createdAt",
-    header: "Data",
-    cell: ({ row }) => {
-      const formatted = formatDateString(row.getValue("createdAt"));
-      return <div className="font-medium">{formatted}</div>;
-    },
+    id: "actions",
+    cell: ({ row }) => (
+      <DataTableRowActions row={row} onEdit={onEdit} onDelete={onDelete} />
+    ),
   },
 ];
